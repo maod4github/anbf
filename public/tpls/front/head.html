@@ -1,0 +1,38 @@
+<nav class='navbar navbar-inverse' style='border-radius: 0px; margin-bottom: 0px;'>
+  <div class='container'>
+    <div class='navbar-header'>
+      <button type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#navbar' aria-expanded='false' aria-controls='navbar'>
+        <span class='sr-only'>Toggle navigation</span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+      </button>
+      <a class='navbar-brand' href='#/'>NABF</a>
+    </div>
+    <div id='navbar' class='collapse navbar-collapse'>
+      <ul class='nav navbar-nav'>
+        <li ng-class="{ 'active': curNavitem === 'Home' }"><a href='#/'>{{ i18n.front.head.n0 }}</a></li>
+        <li ng-class="{ 'active': curNavitem === 'User list' }"><a href='#/user-list'>{{ i18n.front.head.n1 }}</a></li>
+      </ul>
+      <ul class='nav navbar-nav navbar-right'>
+        <li>
+          <div style='padding: 8px 0px;'>
+            <a href='#/signin' class='btn btn-success'>{{ i18n.front.head.n2 }}</a>
+          </div>
+        </li>
+        <li>
+          <div style='padding: 8px 10px;'>
+            <a href='#/signup' class='btn btn-primary'>{{ i18n.front.head.n3 }}</a>
+          </div>
+        </li>
+        <li class='dropdown'>
+          <a href='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='true'>{{ i18n.front.head.n4 }} <span class='caret'></span></a>
+          <ul class='dropdown-menu'>
+            <li><a href='' ng-click='changeLanguage("chinese")'>{{ i18n.front.head.n5 }} - 中文</a></li>
+            <li><a href='' ng-click='changeLanguage("english")'>{{ i18n.front.head.n6 }} - English</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="main">
+  <head>
+    <title><%= app.name %></title>
+    <link rel="shortcut icon" href="/img/favicon.ico" />
+    <link rel='stylesheet' href='/frame/bootstrap/css/bootstrap.min.css' />
+    <link rel='stylesheet' href='/css/nabf.css' />
+  </head>
+  <body>
+    <div ui-view="main"></div>
+  </body>
+</html>
+
+<script type="text/javascript" src="/frame/jquery/js/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/frame/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/frame/angular/js/angular.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/frame/angular/js/angular-ui-router.min.js" charset="utf-8"></script>
+
+<script type="text/javascript" src="/js/nabf-back-to-top.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/nabf-regexp.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/nabf-angular-main.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/nabf-angular-directive-form-validate.js" charset="utf-8"></script>
+
+<script type="text/javascript" charset="utf-8">
+$(function () {
+  console.log('一张网页，要经历怎样的过程，才能抵达用户面前？\n一位新人，要经历怎样的成长，才能站在技术之巅？\n探寻这里的秘密！\n体验这里的挑战！\n成为这里的主人！\n加入<%= app.name %>，加入NodeJS，你，可以影响世界！！！');
+  console.log('请将简历发送至：%c maod4email@sina.com（邮件标题请以“姓名-应聘XX职位-来自console”命名）', 'color:red');
+  console.log('了解我们：http://www.nodebf.cc');
+});
+</script>

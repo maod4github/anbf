@@ -1,0 +1,32 @@
+<div class='container'>
+  <form name='signinForm' novalidate ng-submit='signin(signinForm.$valid)' style='padding-top: 30px;'>
+    <div class='form-group' ng-class='{ "has-error": signinForm.mobileNo.$dirty && signinForm.mobileNo.$invalid }'>
+      <label class='control-label' for='mobileNo'>
+        <span class='text-danger'>*</span> {{ i18n.front.signin.n0 }} : 
+      </label>
+      <input type='text' class='form-control' id='mobileNo' name='mobileNo' ng-model='user.mobileNo' maxlength='11' required fv-mobile-no fv-existed-mobile-no />
+      <div class='help-block' ng-show='signinForm.mobileNo.$dirty && signinForm.mobileNo.$invalid'>
+        <p ng-show='signinForm.mobileNo.$error.required'>{{ i18n.front.signin.n1 }}</p>
+        <p ng-show='!signinForm.mobileNo.$error.required && signinForm.mobileNo.$error.fvMobileNo'>{{ i18n.front.signin.n2 }}</p>
+        <p ng-show='!signinForm.mobileNo.$error.required && !signinForm.mobileNo.$error.fvMobileNo && signinForm.mobileNo.$error.fvExistedMobileNo'>{{ i18n.front.signin.n3 }}</p>
+      </div>
+    </div>
+    <div class='form-group' ng-class='{ "has-error": signinForm.signinPwd.$dirty && signinForm.signinPwd.$invalid }'>
+      <label class='control-label' for='signinPwd'>
+        <span class='text-danger'>*</span> {{ i18n.front.signin.n4 }} : 
+      </label>
+      <input type='password' class='form-control' id='signinPwd' name='signinPwd' ng-model='user.signinPwd' maxlength='16' required fv-signin-pwd />
+      <div class='help-block' ng-show='signinForm.signinPwd.$dirty && signinForm.signinPwd.$invalid'>
+        <p ng-show='signinForm.signinPwd.$error.required'>{{ i18n.front.signin.n5 }}</p>
+        <p ng-show='!signinForm.signinPwd.$error.required && signinForm.signinPwd.$error.fvSigninPwd'>{{ i18n.front.signin.n6 }}</p>
+      </div>
+    </div>
+    <div class='form-group'>
+      <button type='submit' class='btn btn-success' ng-disabled='signinForm.$invalid'>{{ i18n.front.signin.n7 }}</button>
+      <a href='#/signup' class='btn btn-default' data-toggle='tooltip' title='{{ i18n.front.signin.n8 }}'>{{ i18n.front.signin.n9 }}</a>
+    </div>
+  </form>
+</div>
+<script type="text/javascript">
+$('[data-toggle="tooltip"]').tooltip();
+</script>
