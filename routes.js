@@ -8,8 +8,11 @@ router.get('/', function (req, res, next) {
   res.render('home');
 });
 
-router.post('/front/user/save', UserController.save);
 router.post('/front/user/find', UserController.find);
 router.post('/front/user/findOne', UserController.findOne);
+router.post('/front/user/signup', UserController.signup);
+router.post('/front/user/signin', UserController.signin);
+router.post('/front/user/signout', UserController.signout);
+router.post('/front/user/getSession', UserController.getSession);
 
 module.exports = router;

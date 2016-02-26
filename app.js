@@ -9,7 +9,8 @@ var ejs = require('ejs');
 var mongoose = require('mongoose');
 var mongoStore = require('connect-mongo')(session);
 
-var dbUrl = 'mongodb://120.24.208.135:2000/nabf';
+// var dbUrl = 'mongodb://120.24.208.135:2000/nabf';
+var dbUrl = 'mongodb://localhost:2000/nabf';
 
 mongoose.connect(dbUrl, function (err) {
   if (err) {

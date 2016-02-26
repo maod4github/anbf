@@ -2,7 +2,7 @@
   <div class='container'>
     <h1>{{ i18n.front.home.n0 }}</h1>
     <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-    <p>
+    <p ng-show='!session.user'>
       <a class='btn btn-primary btn-lg' href='#/signup' data-toggle='tooltip' title='{{ i18n.front.home.n1 }}'>
         <span class='glyphicon glyphicon-hand-right' aria-hidden='true'></span>&nbsp;&nbsp;{{ i18n.front.home.n2 }} »
       </a>

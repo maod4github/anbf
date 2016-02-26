@@ -5,7 +5,7 @@
     chinese: {
       front: {
         common: { n0: '抱歉，系统繁忙，请稍后重试。' },
-        head: { n0: '首页', n1: '用户列表', n2: '登录', n3: '注册', n4: '语言', n5: '中文', n6: '英文' },
+        head: { n0: '首页', n1: '用户列表', n2: '登录', n3: '注册', n4: '语言', n5: '中文', n6: '英文', n7: '登出', n8: '刷新' },
         home: { n0: '您好，欢迎光临NABF。', n1: '欢迎成为我们的会员 ^_^!', n2: '立即注册' },
         foot: { n0: '友情链接' },
         signup: {
@@ -27,7 +27,7 @@
     english: {
       front: {
         common: { n0: 'Sorry, System very busy, Please retry a little later.' },
-        head: { n0: 'Home', n1: 'User list', n2: 'signin', n3: 'signup', n4: 'Language', n5: 'Chinese', n6: 'English' },
+        head: { n0: 'Home', n1: 'User list', n2: 'signin', n3: 'signup', n4: 'Language', n5: 'Chinese', n6: 'English', n7: 'Signout', n8: 'Refresh' },
         home: { n0: 'Hello, Welcome NABF.', n1: 'Welcome become our VIP ^_^!', n2: 'Signup now' },
         foot: { n0: 'Friendship link' },
         signup: {
@@ -64,6 +64,29 @@
   main.config([ '$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/home');
     $stateProvider.state('main', {
+      resolve: {
+        loadSession: [ '$rootScope', '$http', function ($rootScope, $http) {
+          return $http({
+            method: 'post',
+            url: '/front/user/getSession'
+          }).success(function (ri) {
+            if (ri.code < 1) {
+              $window.alert(ri.msg);
+              return;
+            }
+            $rootScope.session = ri.data.session;
+          });
+        }]
+      },
+      onEnter: [ '$rootScope', '$state', function ($rootScope, $state) {
+        $rootScope.refresh = function () {
+          if ($state.current.name === '') {
+            $state.go('main.front.home');
+            return;
+          }
+          $state.reload();
+        };
+      }],
       views: {
         'main': {
           templateUrl: '/tpl/main.html'
@@ -72,7 +95,23 @@
     }).state('main.front', {
       views: {
         'head@main': {
-          templateUrl: '/tpl/front/head.html'
+          templateUrl: '/tpl/front/head.html',
+          controller: [ '$scope', '$rootScope', '$http', '$state', '$window', function ($scope, $rootScope, $http, $state, $window) {
+            $scope.signout = function () {
+              $http({
+                method: 'post',
+                url: '/front/user/signout'
+              })
+              .success(function (ri) {
+                if (ri.code < 1) {
+                  $window.alert(ri.msg);
+                  return;
+                }
+                delete $rootScope.session.user;
+                $state.go('main.front.home');
+              });
+            };
+          }]
         },
         'foot@main': {
           templateUrl: '/tpl/front/foot.html'
@@ -90,6 +129,11 @@
       }
     }).state('main.front.userList', {
       url: '/user-list',
+      onEnter: [ '$rootScope', '$state', function ($rootScope, $state) {
+        if (!$rootScope.session.user) {
+          $state.go('main.front.signin');
+        }
+      }],
       views: {
         'body@main': {
           templateUrl: '/tpl/front/user-list.html',
@@ -113,16 +157,21 @@
       }
     }).state('main.front.signup', {
       url: '/signup',
+      onEnter: [ '$rootScope', function ($rootScope) {
+        if ($rootScope.session.user) {
+          $rootScope.refresh();
+        }
+      }],
       views: {
         'body@main': {
           templateUrl: '/tpl/front/signup.html',
-          controller: [ '$scope', '$rootScope', '$http', '$window', function ($scope, $rootScope, $http, $window) {
+          controller: [ '$scope', '$rootScope', '$http', '$window', '$state', function ($scope, $rootScope, $http, $window, $state) {
             $rootScope.curNavitem = '';
             $scope.signup = function (valid) {
               if (valid) {
                 $http({
                   method: 'post',
-                  url: '/front/user/save',
+                  url: '/front/user/signup',
                   data: { user: $scope.user }
                 }).success(function (ri) {
                   if (ri.code === -9999) {
@@ -133,7 +182,8 @@
                     $window.alert($rootScope.i18n.front.signup.n13);
                     return;
                   }
-                  $window.location.href = '#/user-list';
+                  $rootScope.session.user = ri.data.user;
+                  $state.go('main.front.home');
                 }).error(function () {
                   $window.alert($rootScope.i18n.front.common.n0);
                 });
@@ -144,16 +194,21 @@
       }
     }).state('main.front.signin', {
       url: '/signin',
+      onEnter: [ '$rootScope', function ($rootScope) {
+        if ($rootScope.session.user) {
+          $rootScope.refresh();
+        }
+      }],
       views: {
         'body@main': {
           templateUrl: '/tpl/front/signin.html',
-          controller: [ '$scope', '$rootScope', '$http', '$window', function ($scope, $rootScope, $http, $window) {
+          controller: [ '$scope', '$rootScope', '$http', '$window', '$state', function ($scope, $rootScope, $http, $window, $state) {
             $rootScope.curNavitem = '';
             $scope.signin = function (valid) {
               if (valid) {
                 $http({
                   method: 'post',
-                  url: '/front/user/findOne',
+                  url: '/front/user/signin',
                   data: { conditions: $scope.user }
                 }).success(function (ri) {
                   if (ri.code === -9999) {
@@ -164,7 +219,8 @@
                     $window.alert($rootScope.i18n.front.signin.n10);
                     return;
                   }
-                  $window.location.href = '#/home';
+                  $rootScope.session.user = ri.data.user;
+                  $state.go('main.front.home');
                 }).error(function () {
                   $window.alert($rootScope.i18n.front.common.n0);
                 });
