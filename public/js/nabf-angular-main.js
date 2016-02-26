@@ -66,23 +66,23 @@
     $stateProvider.state('main', {
       views: {
         'main': {
-          templateUrl: '/tpls/main.html'
+          templateUrl: '/tpl/main.html'
         }
       }
     }).state('main.front', {
       views: {
         'head@main': {
-          templateUrl: '/tpls/front/head.html'
+          templateUrl: '/tpl/front/head.html'
         },
         'foot@main': {
-          templateUrl: '/tpls/front/foot.html'
+          templateUrl: '/tpl/front/foot.html'
         }
       }
     }).state('main.front.home', {
       url: '/home',
       views: {
         'body@main': {
-          templateUrl: '/tpls/front/home.html',
+          templateUrl: '/tpl/front/home.html',
           controller: [ '$rootScope', function ($rootScope) {
             $rootScope.curNavitem = 'Home';
           }]
@@ -92,7 +92,7 @@
       url: '/user-list',
       views: {
         'body@main': {
-          templateUrl: '/tpls/front/user-list.html',
+          templateUrl: '/tpl/front/user-list.html',
           controller: [ '$scope', '$rootScope', '$http', '$window', function ($scope, $rootScope, $http, $window) {
             $rootScope.curNavitem = 'User list';
             $http({
@@ -115,7 +115,7 @@
       url: '/signup',
       views: {
         'body@main': {
-          templateUrl: '/tpls/front/signup.html',
+          templateUrl: '/tpl/front/signup.html',
           controller: [ '$scope', '$rootScope', '$http', '$window', function ($scope, $rootScope, $http, $window) {
             $rootScope.curNavitem = '';
             $scope.signup = function (valid) {
@@ -146,7 +146,7 @@
       url: '/signin',
       views: {
         'body@main': {
-          templateUrl: '/tpls/front/signin.html',
+          templateUrl: '/tpl/front/signin.html',
           controller: [ '$scope', '$rootScope', '$http', '$window', function ($scope, $rootScope, $http, $window) {
             $rootScope.curNavitem = '';
             $scope.signin = function (valid) {
