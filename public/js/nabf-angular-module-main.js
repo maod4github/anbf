@@ -63,9 +63,9 @@
 
   main.config([ '$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider
-    .when('/reg', '/signup')
-    .when('/login', '/signin')
-    .when('/userlist', '/user-list')
+    .when(/^\/reg$/i, '/signup')
+    .when(/^\/register$/i, '/signup')
+    .when(/^\/login$/i, '/signin')
     .otherwise('/home');
     $stateProvider
     .state('main', {
@@ -143,7 +143,7 @@
       }
     })
     .state('main.front.userList', {
-      url: '/user-list',
+      url: '/userlist',
       onEnter: [ '$rootScope', '$state', function ($rootScope, $state) {
         if (!$rootScope.session.user) {
           $state.go('main.front.signin');
