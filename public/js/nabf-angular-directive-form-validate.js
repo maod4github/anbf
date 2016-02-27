@@ -59,9 +59,11 @@
               method: 'post',
               url: '/front/user/findOne',
               data: { conditions: { mobileNo: newVal } }
-            }).success(function (ri) {
+            })
+            .success(function (ri) {
               ngModel.$setValidity('fvInexistentMobileNo', ri.code === -1);
-            }).error(function () {
+            })
+            .error(function () {
               ngModel.$setValidity('fvInexistentMobileNo', false);
             });
           }
@@ -81,9 +83,11 @@
               method: 'post',
               url: '/front/user/findOne',
               data: { conditions: { mobileNo: newVal } }
-            }).success(function (ri) {
+            })
+            .success(function (ri) {
               ngModel.$setValidity('fvExistedMobileNo', ri.code === 1);
-            }).error(function () {
+            })
+            .error(function () {
               ngModel.$setValidity('fvExistedMobileNo', false);
             });
           }

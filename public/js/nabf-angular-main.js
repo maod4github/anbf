@@ -62,19 +62,28 @@
   }]);
 
   main.config([ '$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/home');
-    $stateProvider.state('main', {
+    $urlRouterProvider
+    .when('/reg', '/signup')
+    .when('/login', '/signin')
+    .when('/userlist', '/user-list')
+    .otherwise('/home');
+    $stateProvider
+    .state('main', {
       resolve: {
         loadSession: [ '$rootScope', '$http', function ($rootScope, $http) {
           return $http({
             method: 'post',
             url: '/front/user/getSession'
-          }).success(function (ri) {
+          })
+          .success(function (ri) {
             if (ri.code < 1) {
               $window.alert(ri.msg);
               return;
             }
             $rootScope.session = ri.data.session;
+          })
+          .error(function () {
+            $window.alert($rootScope.i18n.front.common.n0);
           });
         }]
       },
@@ -92,7 +101,8 @@
           templateUrl: '/tpl/main.html'
         }
       }
-    }).state('main.front', {
+    })
+    .state('main.front', {
       views: {
         'head@main': {
           templateUrl: '/tpl/front/head.html',
@@ -109,6 +119,9 @@
                 }
                 delete $rootScope.session.user;
                 $state.go('main.front.home');
+              })
+              .error(function () {
+                $window.alert($rootScope.i18n.front.common.n0);
               });
             };
           }]
@@ -117,7 +130,8 @@
           templateUrl: '/tpl/front/foot.html'
         }
       }
-    }).state('main.front.home', {
+    })
+    .state('main.front.home', {
       url: '/home',
       views: {
         'body@main': {
@@ -127,7 +141,8 @@
           }]
         }
       }
-    }).state('main.front.userList', {
+    })
+    .state('main.front.userList', {
       url: '/user-list',
       onEnter: [ '$rootScope', '$state', function ($rootScope, $state) {
         if (!$rootScope.session.user) {
@@ -143,19 +158,22 @@
               method: 'post',
               url: '/front/user/find',
               data: { conditions: {} }
-            }).success(function (ri) {
+            })
+            .success(function (ri) {
               if (ri.code < 1) {
                 $window.alert($rootScope.i18n.front.common.n0);
                 return;
               }
               $scope.users = ri.data.users;
-            }).error(function () {
+            })
+            .error(function () {
               $window.alert($rootScope.i18n.front.common.n0);
             });
           }]
         }
       }
-    }).state('main.front.signup', {
+    })
+    .state('main.front.signup', {
       url: '/signup',
       onEnter: [ '$rootScope', function ($rootScope) {
         if ($rootScope.session.user) {
@@ -173,7 +191,8 @@
                   method: 'post',
                   url: '/front/user/signup',
                   data: { user: $scope.user }
-                }).success(function (ri) {
+                })
+                .success(function (ri) {
                   if (ri.code === -9999) {
                     $window.alert($rootScope.i18n.front.common.n0);
                     return;
@@ -184,7 +203,8 @@
                   }
                   $rootScope.session.user = ri.data.user;
                   $state.go('main.front.home');
-                }).error(function () {
+                })
+                .error(function () {
                   $window.alert($rootScope.i18n.front.common.n0);
                 });
               }
@@ -192,7 +212,8 @@
           }]
         }
       }
-    }).state('main.front.signin', {
+    })
+    .state('main.front.signin', {
       url: '/signin',
       onEnter: [ '$rootScope', function ($rootScope) {
         if ($rootScope.session.user) {
@@ -210,7 +231,8 @@
                   method: 'post',
                   url: '/front/user/signin',
                   data: { conditions: $scope.user }
-                }).success(function (ri) {
+                })
+                .success(function (ri) {
                   if (ri.code === -9999) {
                     $window.alert($rootScope.i18n.front.common.n0);
                     return;
@@ -221,7 +243,8 @@
                   }
                   $rootScope.session.user = ri.data.user;
                   $state.go('main.front.home');
-                }).error(function () {
+                })
+                .error(function () {
                   $window.alert($rootScope.i18n.front.common.n0);
                 });
               }

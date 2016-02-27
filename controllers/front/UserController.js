@@ -4,7 +4,10 @@ var ResInfo = require('../../utils/ResInfo.js');
 function UserController() {}
 
 UserController.find = function (req, res, next) {
-  User.find(req.body.conditions).sort('updateAt').exec(function (err, users) {
+  User
+  .find(req.body.conditions)
+  .sort('updateAt')
+  .exec(function (err, users) {
     if (err) {
       console.log(err);
       res.json(new ResInfo(-9999, 'err'));
@@ -15,7 +18,9 @@ UserController.find = function (req, res, next) {
 };
 
 UserController.findOne = function (req, res, next) {
-  User.findOne(req.body.conditions).exec(function (err, user) {
+  User
+  .findOne(req.body.conditions)
+  .exec(function (err, user) {
     if (err) {
       console.log(err);
       res.json(new ResInfo(-9999, 'err'));
@@ -31,23 +36,24 @@ UserController.findOne = function (req, res, next) {
 
 UserController.signup = function (req, res, next) {
   new User(req.body.user).save(function (err, user) {
-    var ri = new ResInfo();
     if (err) {
       console.log(err);
-      res.json(ri.set(-9999, 'err'));
+      res.json(new ResInfo(-9999, 'err'));
       return;
     }
     if (!user) {
-      res.json(ri.set(-1, 'fail'));
+      res.json(new ResInfo(-1, 'fail'));
       return;
     }
     req.session.user = user;
-    res.json(ri.set(1, 'succ', { user: user }));
+    res.json(new ResInfo(1, 'succ', { user: user }));
   });
 };
 
 UserController.signin = function (req, res, next) {
-  User.findOne(req.body.conditions).exec(function (err, user) {
+  User
+  .findOne(req.body.conditions)
+  .exec(function (err, user) {
     if (err) {
       console.log(err);
       res.json(new ResInfo(-9999, 'err'));
