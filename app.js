@@ -23,7 +23,7 @@ mongoose.connect(dbUrl, function (err) {
 
 var app = express();
 
-app.locals.app = { name: 'NABF' };
+app.locals.app = { name: 'ANBF' };
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
