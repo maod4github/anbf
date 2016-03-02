@@ -72,7 +72,7 @@
       resolve: {
         loadSession: [ '$rootScope', '$http', function ($rootScope, $http) {
           return $http({
-            method: 'post',
+            method: 'get',
             url: '/front/user/getSession'
           })
           .success(function (ri) {

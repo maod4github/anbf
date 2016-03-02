@@ -13,6 +13,6 @@ router.post('/front/user/findOne', UserController.findOne);
 router.post('/front/user/signup', UserController.signup);
 router.post('/front/user/signin', UserController.signin);
 router.post('/front/user/signout', UserController.signout);
-router.post('/front/user/getSession', UserController.getSession);
+router.get('/front/user/getSession', UserController.getSession);
 
 module.exports = router;
