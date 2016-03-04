@@ -23,6 +23,9 @@ mongoose.connect(dbUrl, function (err) {
 
 var app = express();
 
+// development or production
+app.set('env', 'development');
+
 app.locals.app = { name: 'ANBF' };
 
 // view engine setup
