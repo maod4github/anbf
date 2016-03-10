@@ -7,22 +7,22 @@
         <span class='icon-bar'></span>
         <span class='icon-bar'></span>
       </button>
-      <a class='navbar-brand' href='#/home'>NABF</a>
+      <a class='navbar-brand' href='#/home'>ANBF</a>
     </div>
     <div id='navbar' class='collapse navbar-collapse'>
       <ul class='nav navbar-nav'>
-        <li ng-class="{ 'active': curNavitem === 'Home' }"><a href='#/home'>{{ i18n.front.head.n0 }}</a></li>
-        <li ng-class="{ 'active': curNavitem === 'User list' }"><a href='#/userlist'>{{ i18n.front.head.n1 }}</a></li>
+        <li ng-class="{ 'active': curNavitem === 'Home' }"><a href='#/home'>首页</a></li>
+        <li ng-class="{ 'active': curNavitem === 'User list' }"><a href='#/userlist'>用户列表</a></li>
       </ul>
       <ul class='nav navbar-nav navbar-right'>
         <li ng-show='!session.user'>
           <div style='padding: 8px 0px;'>
-            <a href='#/signin' class='btn btn-success'>{{ i18n.front.head.n2 }}</a>
+            <a href='#/signin' class='btn btn-success'>登入</a>
           </div>
         </li>
         <li ng-show='!session.user'>
           <div style='padding: 8px 10px;'>
-            <a href='#/signup' class='btn btn-primary'>{{ i18n.front.head.n3 }}</a>
+            <a href='#/signup' class='btn btn-primary'>注册</a>
           </div>
         </li>
         <li class='dropdown' ng-show='session.user'>
@@ -31,21 +31,13 @@
             <li><a href='' role='button' >aaaaa</a></li>
             <li><a href='' role='button' >bbbbb</a></li>
             <li class="divider" role="separator"></li>
-            <li><a href='' role='button' ng-click='signout()' >{{ i18n.front.head.n7 }}</a></li>
-          </ul>
-        </li>
-        <li class='dropdown'>
-          <a href='' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='true'>{{ i18n.front.head.n4 }} <span class='caret'></span></a>
-          <ul class='dropdown-menu'>
-            <li><a href='' ng-click='changeLanguage("chinese")' role='button' >{{ i18n.front.head.n5 }} - 中文</a></li>
-            <li><a href='' ng-click='changeLanguage("english")' role='button' >{{ i18n.front.head.n6 }} - English</a></li>
+            <li><a href='' role='button' ng-click='signout()'>登出</a></li>
           </ul>
         </li>
         <li>
           <div style='padding: 10px 0px;'>
             <a href='' class='btn btn-link btn-sm' ng-click='refresh()'>
-              <span class='glyphicon glyphicon-refresh'></span>
-              {{ i18n.front.head.n8 }}
+              <span class='glyphicon glyphicon-refresh'></span> 刷新
             </a>
           </div>
         </li>
