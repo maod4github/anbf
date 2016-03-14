@@ -4,10 +4,7 @@ var ResInfo = require('../../utils/ResInfo.js');
 function UserController() {}
 
 UserController.find = function (req, res, next) {
-  User
-  .find(req.body.conditions)
-  .sort('updateAt')
-  .exec(function (err, users) {
+  User.find(req.body.conditions).sort('updateAt').exec(function (err, users) {
     if (err) {
       console.log(err);
       res.json(new ResInfo(-9999, 'err'));
@@ -18,9 +15,7 @@ UserController.find = function (req, res, next) {
 };
 
 UserController.findOne = function (req, res, next) {
-  User
-  .findOne(req.body.conditions)
-  .exec(function (err, user) {
+  User.findOne(req.body.conditions).exec(function (err, user) {
     if (err) {
       console.log(err);
       res.json(new ResInfo(-9999, 'err'));
@@ -51,9 +46,7 @@ UserController.signup = function (req, res, next) {
 };
 
 UserController.signin = function (req, res, next) {
-  User
-  .findOne(req.body.conditions)
-  .exec(function (err, user) {
+  User.findOne(req.body.conditions).exec(function (err, user) {
     if (err) {
       console.log(err);
       res.json(new ResInfo(-9999, 'err'));
