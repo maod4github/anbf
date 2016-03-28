@@ -9,11 +9,12 @@ var schema = new mongoose.Schema({
 });
 
 schema.pre('save', function (next) {
+  var now = Date.now();
   if (this.isNew) {
     this.signinPwd = Encryptor.strong(this.signinPwd);
-    this.insert_dt = Date.now();
+    this.insertAt = now;
   }
-  this.update_dt = Date.now();
+  this.updateAt = now;
   next();
 });
 
